@@ -114,7 +114,7 @@ if __name__ == '__main__':
         opcao = show_menu()
 
         if opcao == 'd':
-            valor = float(input("Valor do deósito: "))
+            valor = float(input("Valor do depósito: "))
 
             saldo, extrato = depositar(saldo, valor, extrato)
 
