@@ -123,7 +123,7 @@ class Historico:
     def transacoes(self):
         return self._trancacoes
     
-    def adicionar_transaceo(self, transacao):
+    def adicionar_transacao(self, transacao):
         self._trancacoes.append(
             {
                 "tipo": transacao.__class__.__name__,
@@ -157,6 +157,7 @@ class Saque(Transacao):
         if sucesso_transacao:
             conta.historico.adicionar_transacao(self)
 
+
 class Deposito(Transacao):
     def __init__(self, valor):
         self._valor = valor
@@ -174,7 +175,7 @@ class Deposito(Transacao):
 
 def show_menu():
     menu = """
-    ====== Menu iBanco ======
+    ====== Menu iBanco OO ======
     [d]  Depósito
     [s]  Saque
     [e]  Extrato
@@ -200,14 +201,14 @@ def recuperar_conta_cliente(cliente):
 
 
 def depositar(clientes):
-    cpf = input("Informe CPF")
+    cpf = input("Informe CPF: ")
     cliente = filtrar_clientes(cpf, clientes)
 
     if not cliente:
         print('** Cliente nao encontrado!')
         return 
     
-    valor = float(input("Informe o valor:"))
+    valor = float(input("Informe o valor: "))
     transacao = Deposito(valor)
     conta = recuperar_conta_cliente(cliente)
     if not conta:
@@ -217,14 +218,14 @@ def depositar(clientes):
 
 
 def sacar(clientes):
-    cpf = input("Informe CPF")
+    cpf = input("Informe CPF: ")
     cliente = filtrar_clientes(cpf, clientes)
 
     if not cliente:
         print('** Cliente nao encontrado!')
         return 
     
-    valor = float(input("Informe o valor:"))
+    valor = float(input("Informe o valor: "))
     transacao = Saque(valor)
     conta = recuperar_conta_cliente(cliente)
     if not conta:
@@ -234,7 +235,7 @@ def sacar(clientes):
 
 
 def exibir_extrato(clientes):
-    cpf = input("Informe CPF")
+    cpf = input("Informe CPF: ")
     cliente = filtrar_clientes(cpf, clientes)
 
     if not cliente:
@@ -249,7 +250,7 @@ def exibir_extrato(clientes):
     transacoes = conta.historico.transacoes
     extrato = ''
     if not transacoes:
-        extrato = 'Nao foram realizadas transacoes'
+        extrato = 'Nao foram realizadas transacoes!'
     else:
         for transacao in transacoes:
             extrato += f"\n{transacao['tipo']}:\n\tR${transacao['valor']:.2f}"
@@ -260,7 +261,7 @@ def exibir_extrato(clientes):
 
 
 def criar_conta(numero_conta, clientes, contas):
-    cpf = input("Informe CPF")
+    cpf = input("Informe CPF: ")
     cliente = filtrar_clientes(cpf, clientes)
     if not cliente:
         print('** Cliente nao encontrado!')
@@ -274,14 +275,14 @@ def criar_conta(numero_conta, clientes, contas):
 
 
 def criar_cliente(clientes):
-    cpf = input("Informe CPF:")
+    cpf = input("Informe CPF: ")
     cliente = filtrar_clientes(cpf, clientes)
     if cliente:
         print('** Cliente ja existe!')
         return
-    nome = input("Informe nome completo:")
-    data_nascimento = input("Informe data de nascimento (dd-mm-aaaa):")
-    endereco = input("Informe endereco:")
+    nome = input("Informe nome completo: ")
+    data_nascimento = input("Informe data de nascimento (dd-mm-aaaa): ")
+    endereco = input("Informe endereco: ")
   
     cliente = PessoaFisica(nome=nome, data_nascimento=data_nascimento,
                            cpf=cpf, endereco=endereco)
